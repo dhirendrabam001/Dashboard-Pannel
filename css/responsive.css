@@ -1,0 +1,52 @@
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .form-section {
+    overflow: hidden;
+    height: 100vh;
+  }
+  .facebook-content h1 {
+    font-size: 36px;
+  }
+  .divide {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .divide {
+    display: none;
+  }
+  .facebook-content h1 {
+    font-size: 30px;
+  }
+  .bg-main {
+    width: 100%;
+  }
+}
+
+@media (min-width: 360px) and (max-width: 480px) {
+  .bg-main img {
+    width: 100% !important;
+    overflow: hidden;
+    object-fit: cover;
+    margin-top: 0px;
+    margin-left: -16px;
+  }
+  .facebook-icon {
+    text-align: center;
+  }
+  .facebook-icon img {
+    margin-top: 5px;
+  }
+  .form-user {
+    margin-top: -50px;
+  }
+  .form-user h2 {
+    text-align: center;
+  }
+  .meta-info img {
+    margin-top: 0px;
+  }
+  .facebook-content h1 {
+    display: none;
+  }
+}

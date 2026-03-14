@@ -1,0 +1,339 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+.container-info {
+  width: 96% !important;
+  margin: auto !important;
+  object-fit: cover !important;
+}
+.form-section {
+  padding: 10px;
+  width: 100%;
+  overflow: hidden;
+}
+.facebook-icon img {
+  margin-top: 50px;
+}
+
+.bg-main img {
+  width: 100% !important;
+  overflow: hidden;
+  object-fit: cover;
+  margin-left: 50px;
+  margin-top: -110px;
+}
+.facebook-bg {
+  position: relative;
+  overflow: hidden;
+}
+.facebook-content h1 {
+  position: absolute;
+  bottom: 16%;
+  overflow: hidden;
+}
+
+.facebook-content h1 {
+  font-size: 48px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.divide {
+  position: absolute;
+  left: 0;
+  top: -68px;
+  bottom: 0;
+  width: 2px;
+  height: 640px;
+  background-color: #e4e6eb;
+}
+.form-user {
+  padding: 10px 20px;
+}
+.form-user h2 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 20px 0px;
+}
+.form-user .form-control {
+  padding: 15px;
+  border-radius: 14px;
+}
+.form-user button {
+  padding: 10px;
+  border-radius: 22px;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #eee6e6;
+}
+
+.forget-pass a {
+  transition: 0.5s ease;
+  display: block;
+  width: 100%;
+  color: black;
+}
+.forget-pass a:hover {
+  background: #f3eded;
+  padding: 10px;
+  border-radius: 22px;
+  width: 100% !important;
+}
+.create-account a {
+  width: 100%;
+  display: block;
+  border-radius: 22px;
+  padding: 10px;
+  margin-top: 30px;
+  font-weight: bold;
+}
+.create-account a:hover {
+  background: rgb(7, 7, 63);
+}
+.meta-info img {
+  width: 70px;
+  height: 70px;
+  margin-top: 10px;
+}
+
+/* dashboard css */
+.navbar-main {
+  background: rgb(10 61 72);
+}
+
+.navbar-main img {
+  width: 65px;
+  object-fit: cover;
+}
+.nav-item .nav-link {
+  color: white !important;
+  font-weight: 500;
+}
+.container-info {
+  width: 100%;
+  margin: auto;
+}
+.dashboard-main {
+  width: 100%;
+  background: #f8f9fa;
+  min-height: 100vh;
+  overflow: hidden;
+}
+.sidebar-info {
+  height: 100vh;
+  box-shadow: 20px 0 20px #e1e1e13b;
+}
+.dashbaord-content-left {
+  padding: 20px 0px;
+}
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: #d5cbcb;
+}
+.card-info {
+  margin-top: 25px;
+}
+.card-content {
+  background: linear-gradient(135deg, #9bb7e5, #5488fb) !important;
+  padding: 35px 20px;
+  color: white;
+  border-radius: 10px;
+}
+.card-content h5 {
+  font-weight: 500;
+}
+.card-content-posts {
+  background: linear-gradient(150deg, #44bf96, #7de3c3);
+  padding: 35px 20px;
+  color: white;
+  border-radius: 10px;
+}
+.card-content-orders {
+  background: linear-gradient(135deg, #da941db3, #d375099c);
+  padding: 35px 20px;
+  color: black;
+  border-radius: 10px;
+}
+.react-data {
+  border: 2px solid #f2f2f2;
+  background: #fff;
+  padding: 10px;
+}
+.table-content {
+  border: 2px solid #f2f2f2;
+  background: #fff;
+  padding: 5px;
+  margin-top: 15px;
+}
+.divider-2 {
+  width: 99%;
+  margin-left: 5px;
+  height: 2px;
+  background-color: #e3d9d9;
+}
+
+.button-info button {
+  padding: 4px 10px;
+  font-size: 14px;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+.table-main-content {
+  margin-top: 10px;
+}
+.table-main-content h5 {
+  color: #413434;
+  font-weight: 500;
+}
+
+/* Add new items css */
+.card-info-item {
+  background: #fff;
+  padding: 25px;
+  margin-top: 20px;
+  width: 100%;
+  border-radius: 8px;
+}
+.form-select {
+  color: #818181;
+}
+.dropdown-toggle::after {
+  margin-left: 348px;
+}
+.item-content button {
+  width: 100%;
+}
+
+/* order-section */
+.orders-card {
+  padding: 25px 15px;
+  border-radius: 8px;
+  background: #ffff;
+  margin-top: 25px;
+}
+.order-icons i {
+  padding: 10px;
+  background: #0d6efd;
+  width: 40px;
+  height: 36px;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+}
+.orders-card-content h2 {
+  font-size: 35px;
+  font-weight: bold;
+  margin: 0px 0px !important;
+}
+.orders-card-content p {
+  margin: 0px 0px !important;
+  color: gray;
+  margin-left: 7px !important;
+}
+.search-filter {
+  margin-top: 25px;
+}
+
+.search-icon {
+  position: relative;
+}
+.search-icon input {
+  padding-left: 35px;
+}
+.search-icon i {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+}
+.select-color option.color-info {
+  color: gray !important;
+}
+.date-info input {
+  color: gray;
+}
+.date-info {
+  position: relative;
+}
+#realDate {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.order-dashboard {
+  padding: 10px;
+  /* background: #f2f2f2; */
+  margin-top: 25px;
+  border-radius: 6px;
+}
+.id-info h6 {
+  font-size: 16px !important;
+  margin-top: 3px;
+  font-weight: 502;
+}
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
+  border-style: dotted;
+}
+.table > :not(caption) > * > * {
+  padding: 0.5rem 0.5rem;
+  background-color: #ffff !important;
+  border-bottom-width: 1px;
+  box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+}
+
+/* Manage css */
+.manage-card {
+  margin-top: 30px;
+}
+.manage-card-info {
+  background: #fff !important;
+  padding: 20px;
+  border-radius: 8px;
+}
+.manage-card-info i {
+  background: #0d6efd;
+  padding: 10px;
+}
+
+.manage-card-info i {
+  background: #0d6efd;
+  padding: 8px;
+  color: white;
+  font-weight: bold;
+  width: 36px;
+  border-radius: 8px;
+  font-size: 15px;
+}
+.manage-card-content h2 {
+  font-size: 28px;
+  font-weight: bold;
+  margin: 0px 0px !important;
+}
+.manage-card-content p {
+  color: grey;
+}
+.manage-search {
+  margin-top: 30px;
+}
+.category-card {
+  padding: 20px;
+  background: #fff;
+}
+.category-heading h5 {
+  font-size: 18px;
+  color: rgb(63, 56, 56);
+  font-weight: bold;
+}
