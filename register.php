@@ -1,6 +1,11 @@
 <?php
+session_start();
 include "config/connection.php";
 include "flash.php";
+
+if (!isset($_SESSION['token'])) {
+    $_SESSION['token'] = bin2hex(random_bytes(32));
+}
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $email = $_POST['email'];
@@ -93,6 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="form-user">
                         <h2>Register into Facebook</h2>
                         <form method="post" action="#">
+                            <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
                             <div class="mb-3">
                                 <input
                                     type="text"

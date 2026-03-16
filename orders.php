@@ -83,6 +83,13 @@ include "auth/auth.php";
                                     </a>
                                 </li>
                                 <li>
+                                    <a href="detailsItem.php" class="nav-link link-dark">
+                                        <i class="fa-solid fa-folder-open me-"></i>
+                                        </svg>
+                                        All Items
+                                    </a>
+                                </li>
+                                <li>
                                     <a href="#" class="nav-link link-dark">
                                         <i class="fa-solid fa-gear me-2"></i>
                                         Settings

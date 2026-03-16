@@ -102,81 +102,38 @@ include "auth/auth.php";
                 </div>
                 <div class="col-12 col-md-9 col-lg-9">
                     <div class="dashbaord-content-left">
-                        <h2 class="fw-bold fs-2 mb-3">Dashboard</h2>
+                        <h2 class="fw-bold fs-2 mb-3">Details Items</h2>
                         <div class="divider"></div>
-                        <div class="card-info">
-                            <div class="row">
-                                <div class="col-12 col-md-4 col-lg-4">
-                                    <div class="card-content shadow">
-                                        <h5 class="fs-6 mb-3">Total Users</h5>
-                                        <h3 class="fw-bold fs-2">120</h3>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-4 col-lg-4">
-                                    <div class="card-content-posts shadow">
-                                        <h5 class="fs-6 mb-3">Total Posts</h5>
-                                        <h3 class="fw-bold fs-2">100</h3>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-4 col-lg-4">
-                                    <div class="card-content-orders shadow">
-                                        <h5 class="fs-6 mb-3">Total Orders</h5>
-                                        <h3 class="fw-bold fs-2">50</h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- RECENT DATA SECTION -->
-                    <div class="react-data">
-                        <h2 class="fw-bold fs-5">Recent Data</h2>
-                        <div class="divider"></div>
-                        <div class="table-content">
-                            <div class="row align-items-center">
-                                <div class="col-12 col-md-3 col-lg-3">
-                                    <h5 class="fw-bold fs-6">ID</h5>
-                                </div>
-                                <div class="col-12 col-md-3 col-lg-3">
-                                    <h5 class="fw-bold fs-6">Name</h5>
-                                </div>
-                                <div class="col-12 col-md-3 col-lg-3">
-                                    <h5 class="fw-bold fs-6">Email</h5>
-                                </div>
-                                <div class="col-12 col-md-3 col-lg-3">
-                                    <h5 class="fw-bold fs-6">Action</h5>
 
-                                </div>
-                                <div class="divider-2"></div>
-
-                            </div>
-                            <div class="table-main-content">
-                                <div class="row">
-                                    <div class="row align-items-center">
-                                        <div class="col-12 col-md-1 col-lg-1">
-                                            <h5 class="fs-6">1</h5>
+                        <!-- RECENT DATA SECTION -->
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <div class="details-card mt-4">
+                                    <div class="card shadow">
+                                        <div class="card-header">
+                                            Title: Full Stack Developer
                                         </div>
-                                        <div class="col-12 col-md-3 col-lg-3">
-                                            <h5 class="fs-6">Dhirendra Bam</h5>
-                                        </div>
-                                        <div class="col-12 col-md-5 col-lg-5">
-                                            <h5 class="fs-6">dhirendrabam12345@gmail.com</h5>
-                                        </div>
-                                        <div class="col-12 col-md-3 col-lg-3">
-                                            <div class="d-flex align-items-center gap-3 button-info">
-                                                <button type="button" class="btn btn-primary">Edit</button><button type="button" class="btn btn-danger">Delete</button>
+                                        <div class="card-body">
+                                            <h6 class="card-title">Name: Dhirendra Bam</h6>
+                                            <h6>Skills: React, Nodejs</h6>
+                                            <h6>Category: Technology</h6>
+                                            <h6>Description: Learn Html Css JavaScript for begineer</h6>
+                                            <div class="details-btn d-flex align-items-center justify-content-end gap-3">
+                                                <div class="btn-info">
+                                                    <button type="button" class="btn btn-success">Edit</button>
+                                                </div>
+                                                <div class="btn-info">
+                                                    <button type="button" class="btn btn-danger">Delete</button>
+                                                </div>
                                             </div>
                                         </div>
-
-
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </section>
 

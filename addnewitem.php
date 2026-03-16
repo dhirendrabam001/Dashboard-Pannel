@@ -1,5 +1,31 @@
 <?php
 include "auth/auth.php";
+include "config/connection.php";
+include "flash.php";
+if (isset($_POST["submit"])) {
+    $title = $_POST["title"];
+    $name = $_POST["name"];
+    $skills = $_POST["skills"];
+    $category = $_POST["category"];
+    $description = $_POST["description"];
+    $status = isset($_POST["status"]) ? "Active" : "Inactive";
+
+    // please check all field are required or not 
+    if (!$title || !$name || !$skills || !$category || !$description || !$status) {
+        flash("error", "Please All Filed Are Required");
+        exit();
+    }
+
+    // store data in database
+    $sql = "INSERT INTO item_table(title, name, skills, category, description, status) VALUES ('$title', '$name', '$skills', '$category', '$description', '$status') ";
+
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
+        flash("success", "Item Added Successfully");
+    } else {
+        flash("error", "Item Does Not Stored");
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -84,6 +110,13 @@ include "auth/auth.php";
                                     </a>
                                 </li>
                                 <li>
+                                    <a href="detailsItem.php" class="nav-link link-dark">
+                                        <i class="fa-solid fa-folder-open me-"></i>
+                                        </svg>
+                                        All Items
+                                    </a>
+                                </li>
+                                <li>
                                     <a href="#" class="nav-link link-dark">
                                         <i class="fa-solid fa-gear me-2"></i>
                                         Settings
@@ -94,72 +127,74 @@ include "auth/auth.php";
                     </div>
                 </div>
                 <div class="col-12 col-md-9 col-lg-9">
-                    <div class="dashbaord-content-left">
-                        <h2 class="fw-bold fs-3 mb-3">Add New Item</h2>
-                        <div class="divider"></div>
-                        <div class="card-info-item">
-                            <div class="card-info-item-content">
-                                <div class="row align-items-center">
-                                    <div class="col-12 col-md-6 col-lg-6">
-                                        <div class="item-content">
-                                            <div class="mb-3">
-                                                <label class="form-label">Title<span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" placeholder="Enter Title...">
+                    <form action="" method="POST">
+                        <div class="dashbaord-content-left">
+                            <h2 class="fw-bold fs-3 mb-3">Add New Item</h2>
+                            <div class="divider"></div>
+                            <div class="card-info-item">
+                                <div class="card-info-item-content">
+                                    <div class="row align-items-center">
+                                        <div class="col-12 col-md-6 col-lg-6">
+                                            <div class="item-content">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Title<span class="text-danger">*</span></label>
+                                                    <input type="text" name="title" class="form-control" placeholder="Enter Title...">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-12 col-md-6 col-lg-6">
-                                        <div class="item-content">
-                                            <div class="mb-3">
-                                                <label class="form-label">Name<span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" placeholder="Enter Name...">
+                                        <div class="col-12 col-md-6 col-lg-6">
+                                            <div class="item-content">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Name<span class="text-danger">*</span></label>
+                                                    <input type="text" name="name" class="form-control" placeholder="Enter Name...">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-12 col-md-6 col-lg-6">
-                                        <div class="item-content">
-                                            <div class="mb-3">
-                                                <label class="form-label">Subject <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" placeholder="Enter Subject...">
+                                        <div class="col-12 col-md-6 col-lg-6">
+                                            <div class="item-content">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Skills <span class="text-danger">*</span></label>
+                                                    <input type="text" name="skills" class="form-control" placeholder="Enter Subject...">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-12 col-md-6 col-lg-6">
-                                        <div class="item-content">
-                                            <div class="mb-3">
-                                                <label class="form-label">Category <span class="text-danger">*</span></label>
-                                                <select class="form-select">
-                                                    <option selected disabled>Select category</option>
-                                                    <option>Mobile</option>
-                                                    <option>Laptop</option>
-                                                    <option>Accessories</option>
-                                                </select>
+                                        <div class="col-12 col-md-6 col-lg-6">
+                                            <div class="item-content">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Category <span class="text-danger">*</span></label>
+                                                    <select name="category" class="form-select">
+                                                        <option selected disabled>Select category</option>
+                                                        <option>Education</option>
+                                                        <option>Technology</option>
+                                                        <option>Designer</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="mb-3">
-                                            <label class="form-label">Description<span class="text-danger">*</span></label>
-                                            <textarea class="form-control" placeholder="Enter Description..." rows="5"></textarea>
+                                        <div class="col-12">
+                                            <div class="mb-3">
+                                                <label class="form-label">Description<span class="text-danger">*</span></label>
+                                                <textarea class="form-control" name="description" placeholder="Enter Description..." rows="5"></textarea>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="d-flex align-items-center mb-4">
-                                            <label class="form-label me-3 mb-0">Status:</label>
+                                        <div class="col-12">
+                                            <div class="d-flex align-items-center mb-4">
+                                                <label class="form-label me-3 mb-0">Status:</label>
 
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" checked>
-                                                <label class="form-check-label">Active</label>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" name="status" value="Active" type="checkbox" checked>
+                                                    <label class="form-check-label">Active</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="add-item-btn text-center">
-                                    <button type="submit" class="btn btn-primary w-100">Submit</button>
+                                    <div class="add-item-btn text-center">
+                                        <button type="submit" name="submit" class="btn btn-primary w-100">Submit</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

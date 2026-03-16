@@ -84,6 +84,13 @@ include "auth/auth.php";
                                     </a>
                                 </li>
                                 <li>
+                                    <a href="detailsItem.php" class="nav-link link-dark">
+                                        <i class="fa-solid fa-folder-open me-"></i>
+                                        </svg>
+                                        All Items
+                                    </a>
+                                </li>
+                                <li>
                                     <a href="#" class="nav-link link-dark">
                                         <i class="fa-solid fa-gear me-2"></i>
                                         Settings
@@ -141,67 +148,9 @@ include "auth/auth.php";
                                 </div>
                             </div>
                         </div>
-
-                        <!-- seach order -->
-                        <div class="manage-search">
-                            <div class="row">
-                                <div class="col-12 col-md-9 col-lg-9">
-                                    <div class="search-icon">
-                                        <i class="fa-solid fa-magnifying-glass text-secondary"></i>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            placeholder="Search...">
-                                    </div>
-                                </div>
-                                <!-- ADD ORDER -->
-                                <div class="col-12 col-md-3 col-lg-3">
-                                    <div class="add-btn">
-                                        <button class="btn btn-primary w-100"> <i class="fa-solid fa-plus"></i> Add Category</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--  category info-->
-                        <div class="manage-search">
-                            <div class="row">
-                                <div class="col-12 col-md-6 col-lg-6">
-                                    <div class="category-card shadow">
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <div class="category-heading">
-                                                <h5>Categories</h5>
-                                            </div>
-                                            <div class="category-btn">
-                                                <button class="btn btn-primary"> <i class="fa-solid fa-plus"></i> Add Category</button>
-                                            </div>
-                                        </div>
-                                        <div class="table-responsive">
-                                            <table class="table align-middle mb-0">
-                                                <thead class="table-light">
-                                                    <tr>
-                                                        <th><input type="checkbox">
-                                                        <th>ID</th>
-                                                        </th>
-                                                        </th>
-
-                                                        <th>Name</th>
-                                                        <th class="text-center">Action</th>
-                                                    </tr>
-                                                </thead>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
                     </div>
-
                 </div>
             </div>
-
         </div>
     </section>
 

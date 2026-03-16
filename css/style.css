@@ -337,3 +337,21 @@ tr {
   color: rgb(63, 56, 56);
   font-weight: bold;
 }
+
+/* details card css */
+.card-header {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: -15px;
+}
+.details-card .card {
+  padding: 15px 0px;
+}
+.details-card .card-body {
+  padding: 0px 20px !important;
+}
+.details-card .card-body h6 {
+  font-size: 16px;
+  color: #8f7c7c;
+  margin: 12px 0px;
+}
