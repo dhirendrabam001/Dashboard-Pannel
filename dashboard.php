@@ -1,5 +1,6 @@
 <?php
 include "auth/auth.php";
+include "auth/session.php";
 include "config/connection.php";
 
 // fetch all the data items

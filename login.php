@@ -44,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // CREATE SESSION
     $_SESSION['user_id'] = $user['id'];
     $_SESSION['username'] = $user['username'];
+    $_SESSION['last_active'] = time();
     // unset token
     unset($_SESSION['token']);
     flash("success", "Login Successfully");
