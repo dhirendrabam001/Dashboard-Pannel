@@ -22,6 +22,7 @@ if (isset($_POST["submit"])) {
     $result = mysqli_query($conn, $sql);
     if ($result) {
         flash("success", "Item Added Successfully");
+        header("Location: dashboard.php");
     } else {
         flash("error", "Item Does Not Stored");
     }
@@ -107,13 +108,6 @@ if (isset($_POST["submit"])) {
                                         <i class="fa-solid fa-folder-open me-"></i>
                                         </svg>
                                         Manage
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="detailsItem.php" class="nav-link link-dark">
-                                        <i class="fa-solid fa-folder-open me-"></i>
-                                        </svg>
-                                        All Items
                                     </a>
                                 </li>
                                 <li>

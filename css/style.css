@@ -209,6 +209,12 @@ body {
 .item-content button {
   width: 100%;
 }
+.table > :not(caption) > * > * {
+  padding: 10px 2px !important;
+  background-color: #ffff !important;
+  border-bottom-width: 1px;
+  box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+}
 
 /* order-section */
 .orders-card {

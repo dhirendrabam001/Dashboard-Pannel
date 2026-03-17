@@ -3,7 +3,18 @@ session_start();
 include "config/connection.php";
 include "flash.php";
 
+// token gerated
+if (!isset($_SESSION['token'])) {
+    $_SESSION['token'] = bin2hex(random_bytes(32));
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // verify the token
+    if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
+        flash("error", "Invalid Token");
+        exit();
+    }
+
     $email = $_POST['email'];
     $password = $_POST['password'];
 
@@ -33,6 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // CREATE SESSION
     $_SESSION['user_id'] = $user['id'];
     $_SESSION['username'] = $user['username'];
+    // unset token
+    unset($_SESSION['token']);
     flash("success", "Login Successfully");
 
     // REDIRECT DASHBOARD
@@ -95,6 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="form-user">
                         <h2>Login into Facebook</h2>
                         <form method="post" action="#">
+                            <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
                             <div class="mb-3">
                                 <input
                                     type="email"

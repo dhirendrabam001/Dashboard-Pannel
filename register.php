@@ -7,6 +7,13 @@ if (!isset($_SESSION['token'])) {
     $_SESSION['token'] = bin2hex(random_bytes(32));
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    // check the token
+    if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
+        flash("error", "Invalid Token");
+        exit();
+    }
+
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -38,15 +45,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // SAVE INTO DATABASE MYSQLI
     $sql = "INSERT INTO register_table(username, email, password) VALUES ('$username', '$email', '$hashPassword')";
     if (mysqli_query($conn, $sql)) {
+        // unset token when register successfully
+        unset($_SESSION['token']);
         flash("success", "User Register Successfully");
     } else {
         flash("error", "Register Failed");
         header("Location: login.php");
     }
 }
-
 ?>
-
 
 <!doctype html>
 <html lang="en">
@@ -103,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <input
                                     type="text"
                                     class="form-control"
-                                    name="username" ;
+                                    name="username"
                                     placeholder="Username" />
 
                             </div>

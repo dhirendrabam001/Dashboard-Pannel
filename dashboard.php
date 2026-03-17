@@ -1,5 +1,10 @@
 <?php
 include "auth/auth.php";
+include "config/connection.php";
+
+// fetch all the data items
+$sql = "SELECT * FROM item_table ORDER BY id DESC";
+$result = mysqli_query($conn, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -84,13 +89,6 @@ include "auth/auth.php";
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="detailsItem.php" class="nav-link link-dark">
-                                        <i class="fa-solid fa-folder-open me-"></i>
-                                        </svg>
-                                        All Items
-                                    </a>
-                                </li>
-                                <li>
                                     <a href="#" class="nav-link link-dark">
                                         <i class="fa-solid fa-gear me-2"></i>
                                         Settings
@@ -132,46 +130,83 @@ include "auth/auth.php";
                         <h2 class="fw-bold fs-5">Recent Data</h2>
                         <div class="divider"></div>
                         <div class="table-content">
-                            <div class="row align-items-center">
-                                <div class="col-12 col-md-3 col-lg-3">
-                                    <h5 class="fw-bold fs-6">ID</h5>
-                                </div>
-                                <div class="col-12 col-md-3 col-lg-3">
-                                    <h5 class="fw-bold fs-6">Name</h5>
-                                </div>
-                                <div class="col-12 col-md-3 col-lg-3">
-                                    <h5 class="fw-bold fs-6">Email</h5>
-                                </div>
-                                <div class="col-12 col-md-3 col-lg-3">
-                                    <h5 class="fw-bold fs-6">Action</h5>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Title</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Skills</th>
+                                            <th scope="col">Category</th>
+                                            <th scope="col">Description</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $row['id']; ?></td>
+                                                <td><?php echo $row['title']; ?></td>
+                                                <td><?php echo $row['name']; ?></td>
+                                                <td><?php echo $row['skills']; ?></td>
+                                                <td><?php echo $row['category']; ?></td>
+                                                <td><?php echo $row['description']; ?></td>
+                                                <td>
 
-                                </div>
-                                <div class="divider-2"></div>
+                                                    <?php if ($row['status'] == "Active") { ?>
 
+                                                        <span class="badge bg-success">Active</span>
+
+                                                    <?php } else { ?>
+
+                                                        <span class="badge bg-secondary">Inactive</span>
+
+                                                    <?php } ?>
+
+                                                </td>
+                                                <td>
+
+                                                    <a href="edit.php?id=<?php echo $row['id']; ?>"
+                                                        class="btn btn-sm btn-primary">
+                                                        Edit
+                                                    </a>
+
+                                                    <a href="delete.php?id=<?php echo $row['id']; ?>"
+                                                        class="btn btn-sm btn-danger"
+                                                        onclick="return confirm('Are you sure to delete this item?');">
+                                                        Delete
+                                                    </a>
+
+                                                </td>
+                                            </tr>
+                                        <?php
+                                        }
+                                        ?>
+                                        <!-- <tr>
+                                            <th scope="row">1</th>
+                                            <td>Frontend</td>
+                                            <td>Dhirendra</td>
+                                            <td>Nodejs</td>
+                                            <td>Technology</td>
+                                            <td>Frsher Developer</td>
+                                            <td>Active</td>
+                                            <td>
+                                                <a href="edit.php?id=1" class="btn btn-sm btn-primary">
+                                                    <i class="fa fa-edit"></i> Edit
+                                                </a>
+
+                                                <a href="delete.php?id=1" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this record?');">
+                                                    <i class="fa fa-trash"></i> Delete
+                                                </a>
+                                            </td>
+                                        </tr> -->
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="table-main-content">
-                                <div class="row">
-                                    <div class="row align-items-center">
-                                        <div class="col-12 col-md-1 col-lg-1">
-                                            <h5 class="fs-6">1</h5>
-                                        </div>
-                                        <div class="col-12 col-md-3 col-lg-3">
-                                            <h5 class="fs-6">Dhirendra Bam</h5>
-                                        </div>
-                                        <div class="col-12 col-md-5 col-lg-5">
-                                            <h5 class="fs-6">dhirendrabam12345@gmail.com</h5>
-                                        </div>
-                                        <div class="col-12 col-md-3 col-lg-3">
-                                            <div class="d-flex align-items-center gap-3 button-info">
-                                                <button type="button" class="btn btn-primary">Edit</button><button type="button" class="btn btn-danger">Delete</button>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
