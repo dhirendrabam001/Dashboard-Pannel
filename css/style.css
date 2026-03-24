@@ -299,7 +299,14 @@ tr {
   border-bottom-width: 1px;
   box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
 }
-
+select {
+  word-wrap: normal;
+  width: 100%;
+  padding: 9px;
+  background: transparent;
+  border: 1px solid #d0d0d0;
+  color: gray;
+}
 /* Manage css */
 .manage-card {
   margin-top: 30px;

@@ -1,6 +1,37 @@
 <?php
 include "auth/auth.php";
 include "auth/session.php";
+include "config/connection.php";
+include "flash.php";
+
+if (isset($_POST['submit'])) {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $date = $_POST['date'];
+    $status = $_POST['status'];
+
+    // All field are required
+    if (!$name || !$email || !$date || !$status) {
+        flash("error", "Please All Field Are Required");
+        exit();
+    }
+    // insert into database
+    $sql = "INSERT INTO order_table(customer_name, customer_email, order_date, status) VALUES('$name', '$email', '$date', '$status')";
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
+        flash("success", "Order Added Successfully");
+    } else {
+        flash("error", "Something Error");
+    }
+    header("Location: orders.php");
+    exit();
+}
+
+// fetch the data
+$sql = "SELECT * FROM order_table ORDER BY id DESC";
+$result = mysqli_query($conn, $sql);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -197,7 +228,57 @@ include "auth/session.php";
                                     <!-- ADD ORDER -->
                                     <div class="col-12 col-md-2 col-lg-2">
                                         <div class="add-btn">
-                                            <button class="btn btn-primary"> <i class="fa-solid fa-plus"></i> Add Orders</button>
+                                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addOrder"> <i class="fa-solid fa-plus"></i> Add Orders</button>
+
+                                            <!-- modal add order form -->
+                                            <div class="modal fade" id="addOrder" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title fw-bold fs-3" id="exampleModalLabel">Add Order</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="" method="POST">
+                                                                <div class="row">
+                                                                    <div class="col-12 col-md-6 col-lg-6">
+                                                                        <div class="mb-3">
+                                                                            <label for="name" class="form-label">Student Name</label>
+                                                                            <input type="text" name="name" class="form-control" aria-describedby="NameHelp">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-md-6 col-lg-6">
+                                                                        <div class="mb-3">
+                                                                            <label for="email" class="form-label">Student Email</label>
+                                                                            <input type="email" name="email" class="form-control" aria-describedby="NameHelp">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-md-6 col-lg-6">
+                                                                        <div class="mb-3">
+                                                                            <label for="date" class="form-label">Order Date</label>
+                                                                            <input type="date" name="date" class="form-control" aria-describedby="DateHelp">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-md-6 col-lg-6">
+                                                                        <div class="mb-3">
+                                                                            <label for="category" class="form-label">Select Status</label>
+                                                                            <select name="status">
+                                                                                <option value="">Select Status</option>
+                                                                                <option value="pending">Pending</option>
+                                                                                <option value="success">Success</option>
+                                                                                <option value="rejected">Rejected</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="order-btn">
+                                                                        <button type="submit" name="submit" class="btn btn-outline-success w-100">Add Order</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -227,31 +308,34 @@ include "auth/session.php";
                                         </tr>
                                     </thead>
                                     <tbody class="table-info">
-                                        <tr>
-                                            <th scope="row">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <div class="form-check m-0">
-                                                        <input class="form-check-input row-check" type="checkbox">
+                                        <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+                                            <tr>
+                                                <th scope="row">
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <div class="form-check m-0">
+                                                            <input class="form-check-input row-check" type="checkbox">
+                                                        </div>
+                                                        <span class="fw-semibold"><?php $row['id']; ?></span>
                                                     </div>
-                                                    <span class="fw-semibold">#1250</span>
-                                                </div>
-                                            </th>
+                                                </th>
 
-                                            <td>
-                                                <h6 class="mb-0">Dhirendra</h6>
-                                                <small class="text-muted">dhirendrabam12@gmail.com</small>
-                                            </td>
+                                                <td>
+                                                    <h6 class="mb-0"><?php $row['customer_name']; ?></h6>
+                                                    <small class="text-muted"><?php $row['customer_email']; ?> </small>
+                                                </td>
 
-                                            <td>12 Oct 2026</td>
+                                                <td><?php $row['order_date']; ?> </td>
 
-                                            <td>
-                                                <span class="badge bg-warning text-dark">Pending</span>
-                                            </td>
+                                                <td>
+                                                    <span class="badge bg-warning text-dark">Pending</span>
+                                                </td>
 
-                                            <td class="text-center">
-                                                <button class="btn btn-sm btn-primary">View</button>
-                                            </td>
-                                        </tr>
+                                                <td class="text-center">
+                                                    <button class="btn btn-sm btn-primary">View</button>
+                                                </td>
+                                            </tr>
+                                        <?php }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
