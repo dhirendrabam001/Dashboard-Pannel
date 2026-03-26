@@ -2,7 +2,24 @@
 include "config/connection.php";
 include "flash.php";
 include "auth/auth.php";
+$user_id = $_SESSION['user_id'];
 
+$sql = "SELECT * FROM  setting_table WHERE id = 'user_id'";
+$result = mysqli_query($conn, $sql);
+$user = mysqli_fetch_assoc($result);
+
+if (isset($_POST['submit'])) {
+    $name = $_POST['setting_name'];
+    $email = $_POST['setting_email'];
+    $phone = $_POST['setting_phone'];
+    $password = $_POST['setting_password'];
+
+    // all field are required
+    if (!$name || !$email || !$phone || !$password) {
+        flash("error", "Please All Field Are Required");
+        exit();
+    }
+}
 
 
 ?>
@@ -92,7 +109,7 @@ include "auth/auth.php";
                     </div>
                 </div>
                 <div class="col-12 col-md-9 col-lg-9">
-                    <form action="" method="POST">
+                    <form>
                         <div class="dashbaord-content-left">
                             <h2 class="fw-bold fs-3 mb-3">Settings</h2>
                             <div class="divider"></div>
@@ -104,7 +121,7 @@ include "auth/auth.php";
                                             <div class="item-content">
                                                 <div class="mb-3">
                                                     <label class="form-label">Name<span class="text-danger">*</span></label>
-                                                    <input type="text" name="title" class="form-control" placeholder="Enter Name...">
+                                                    <input type="text" name="title" value="<?php echo $user['name']; ?>" class="form-control" placeholder="Enter Name...">
                                                 </div>
                                             </div>
                                         </div>
@@ -112,7 +129,7 @@ include "auth/auth.php";
                                             <div class="item-content">
                                                 <div class="mb-3">
                                                     <label class="form-label">Email<span class="text-danger">*</span></label>
-                                                    <input type="email" name="email" class="form-control" placeholder="Enter Your Email Address...">
+                                                    <input type="email" name="email" value="<?php echo $user['email']; ?>" class="form-control" placeholder="Enter Your Email Address...">
                                                 </div>
                                             </div>
                                         </div>
@@ -120,7 +137,7 @@ include "auth/auth.php";
                                             <div class="item-content">
                                                 <div class="mb-3">
                                                     <label class="form-label">Phone <span class="text-danger">*</span></label>
-                                                    <input type="text" name="phone" class="form-control" placeholder="Enter Phone Number...">
+                                                    <input type="text" name="phone" value="<?php echo $user['phone']; ?>" class="form-control" placeholder="Enter Phone Number...">
                                                 </div>
                                             </div>
                                         </div>
