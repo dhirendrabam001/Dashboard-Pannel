@@ -1,32 +1,10 @@
 <?php
-include "auth/auth.php";
 include "config/connection.php";
 include "flash.php";
-if (isset($_POST["submit"])) {
-    $title = $_POST["title"];
-    $name = $_POST["name"];
-    $skills = $_POST["skills"];
-    $category = $_POST["category"];
-    $description = $_POST["description"];
-    $status = isset($_POST["status"]) ? "Active" : "Inactive";
+include "auth/auth.php";
 
-    // please check all field are required or not 
-    if (!$title || !$name || !$skills || !$category || !$description || !$status) {
-        flash("error", "Please All Filed Are Required");
-        exit();
-    }
 
-    // store data in database
-    $sql = "INSERT INTO item_table(title, name, skills, category, description, status) VALUES ('$title', '$name', '$skills', '$category', '$description', '$status') ";
 
-    $result = mysqli_query($conn, $sql);
-    if ($result) {
-        flash("success", "Item Added Successfully");
-        header("Location: dashboard.php");
-    } else {
-        flash("error", "Item Does Not Stored");
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -42,7 +20,7 @@ if (isset($_POST["submit"])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/responsive.css" />
-    <title>Add New Item</title>
+    <title>Setting</title>
 </head>
 
 <body>
@@ -116,72 +94,99 @@ if (isset($_POST["submit"])) {
                 <div class="col-12 col-md-9 col-lg-9">
                     <form action="" method="POST">
                         <div class="dashbaord-content-left">
-                            <h2 class="fw-bold fs-3 mb-3">Add New Item</h2>
+                            <h2 class="fw-bold fs-3 mb-3">Settings</h2>
                             <div class="divider"></div>
-                            <div class="card-info-item">
+                            <h5 class="fw-bold fs-5 my-3">Profile Setting</h5>
+                            <div class="card-info-item-setting shadow">
                                 <div class="card-info-item-content">
                                     <div class="row align-items-center">
-                                        <div class="col-12 col-md-6 col-lg-6">
-                                            <div class="item-content">
-                                                <div class="mb-3">
-                                                    <label class="form-label">Title<span class="text-danger">*</span></label>
-                                                    <input type="text" name="title" class="form-control" placeholder="Enter Title...">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-6 col-lg-6">
+                                        <div class="col-12">
                                             <div class="item-content">
                                                 <div class="mb-3">
                                                     <label class="form-label">Name<span class="text-danger">*</span></label>
-                                                    <input type="text" name="name" class="form-control" placeholder="Enter Name...">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-6 col-lg-6">
-                                            <div class="item-content">
-                                                <div class="mb-3">
-                                                    <label class="form-label">Skills <span class="text-danger">*</span></label>
-                                                    <input type="text" name="skills" class="form-control" placeholder="Enter Subject...">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-6 col-lg-6">
-                                            <div class="item-content">
-                                                <div class="mb-3">
-                                                    <label class="form-label">Category <span class="text-danger">*</span></label>
-                                                    <select name="category" class="form-select">
-                                                        <option selected disabled>Select category</option>
-                                                        <option>Education</option>
-                                                        <option>Technology</option>
-                                                        <option>Designer</option>
-                                                    </select>
+                                                    <input type="text" name="title" class="form-control" placeholder="Enter Name...">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <div class="mb-3">
-                                                <label class="form-label">Description<span class="text-danger">*</span></label>
-                                                <textarea class="form-control" name="description" placeholder="Enter Description..." rows="5"></textarea>
+                                            <div class="item-content">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Email<span class="text-danger">*</span></label>
+                                                    <input type="email" name="email" class="form-control" placeholder="Enter Your Email Address...">
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <div class="d-flex align-items-center mb-4">
-                                                <label class="form-label me-3 mb-0">Status:</label>
-
-                                                <div class="form-check form-switch">
-                                                    <input class="form-check-input" name="status" value="Active" type="checkbox" checked>
-                                                    <label class="form-check-label">Active</label>
+                                            <div class="item-content">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Phone <span class="text-danger">*</span></label>
+                                                    <input type="text" name="phone" class="form-control" placeholder="Enter Phone Number...">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="add-item-btn text-center">
-                                        <button type="submit" name="submit" class="btn btn-primary w-100">Submit</button>
+                                        <button type="submit" name="submit" class="btn btn-primary w-100">Update Profile</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </form>
+                    <!-- change password -->
+                    <div class="change-password-content mt-3">
+                        <h5 class="fw-bold fs-5 my-3">Change Password</h5>
+                        <div class="card-info-item-setting shadow">
+                            <form action="" method="POST">
+                                <div class="row align-items-center">
+                                    <div class="col-12">
+                                        <div class="item-content">
+                                            <div class="mb-3">
+                                                <label class="form-label">Current Password<span class="text-danger">*</span></label>
+                                                <input type="text" name="currentpass" class="form-control" placeholder="Enter Current Password...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="item-content">
+                                            <div class="mb-3">
+                                                <label class="form-label">Change Password<span class="text-danger">*</span></label>
+                                                <input type="text" name="cpassword" class="form-control" placeholder="Enter Your Change Password...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="item-content">
+                                            <div class="mb-3">
+                                                <label class="form-label">Confirm Password <span class="text-danger">*</span></label>
+                                                <input type="text" name="confirmpass" class="form-control" placeholder="Enter Confirm Password...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="add-item-btn text-center">
+                                    <button type="submit" name="submit" class="btn btn-primary w-100">Update Profile</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- change password -->
+                    <div class="change-password-content mt-3">
+                        <h5 class="fw-bold fs-5 my-3">Notification Setting</h5>
+                        <div class="card-info-item-setting shadow">
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Email Notification</label>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Order Alerts</label>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">New User Alerts</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

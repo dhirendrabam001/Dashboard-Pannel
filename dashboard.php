@@ -10,6 +10,12 @@ $user_result = mysqli_query($conn, $user_info);
 $fetch_data = mysqli_fetch_assoc($user_result);
 $total_user = $fetch_data['total_user'];
 
+// total orders
+$total_query = "SELECT COUNT(*) AS total_order FROM order_table";
+$total_result = mysqli_query($conn, $total_query);
+$total_row = mysqli_fetch_assoc($total_result);
+$total_order = $total_row['total_order'];
+
 // updated data from backend
 if (isset($_POST['submit'])) {
 
@@ -117,14 +123,7 @@ $result = mysqli_query($conn, $sql);
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="manage.php" class="nav-link link-dark">
-                                        <i class="fa-solid fa-folder-open me-"></i>
-                                        </svg>
-                                        Manage
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="nav-link link-dark">
+                                    <a href="setting.php" class="nav-link link-dark">
                                         <i class="fa-solid fa-gear me-2"></i>
                                         Settings
                                     </a>
@@ -154,7 +153,7 @@ $result = mysqli_query($conn, $sql);
                                 <div class="col-12 col-md-4 col-lg-4">
                                     <div class="card-content-orders shadow">
                                         <h5 class="fs-6 mb-3">Total Orders</h5>
-                                        <h3 class="fw-bold fs-2">50</h3>
+                                        <h3 class="fw-bold fs-2"><?php echo $total_order ?></h3>
                                     </div>
                                 </div>
                             </div>

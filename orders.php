@@ -31,6 +31,37 @@ if (isset($_POST['submit'])) {
 $sql = "SELECT * FROM order_table ORDER BY id DESC";
 $result = mysqli_query($conn, $sql);
 
+// view order
+if (isset($_GET['id'])) {
+    $id = intval($_GET['id']);
+    $sql = "SELECT * FROM order_table WHERE id = $id";
+    $order_result = mysqli_query($conn, $sql);
+    $view_order = mysqli_fetch_assoc($order_result);
+}
+
+// show total order on card
+$order_query = "SELECT COUNT(*) AS total_orders FROM order_table";
+$order_result = mysqli_query($conn, $order_query);
+$order_row = mysqli_fetch_assoc($order_result);
+$total_orders = $order_row['total_orders'];
+
+// show completed order
+$complete_query = "SELECT COUNT(*) AS complete_orders FROM order_table WHERE status = 'success'";
+$complete_order = mysqli_query($conn, $complete_query);
+$complete_row = mysqli_fetch_assoc($complete_order);
+$complete_orders = $complete_row['complete_orders'];
+
+// show pending orders
+$pending_query = "SELECT COUNT(*) AS pending_orders FROM order_table WHERE status = 'pending'";
+$pending_order = mysqli_query($conn, $pending_query);
+$pending_row = mysqli_fetch_assoc($pending_order);
+$pending_orders = $pending_row['pending_orders'];
+
+// show rejected orders 
+$reject_query = "SELECT COUNT(*) AS reject_orders FROM order_table WHERE status = 'rejected'";
+$reject_order = mysqli_query($conn, $reject_query);
+$reject_row = mysqli_fetch_assoc($reject_order);
+$reject_orders = $reject_row['reject_orders'];
 
 ?>
 <!DOCTYPE html>
@@ -46,7 +77,7 @@ $result = mysqli_query($conn, $sql);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/responsive.css" />
-    <title>Dashboard</title>
+    <title>Orders</title>
 </head>
 
 <body>
@@ -108,14 +139,7 @@ $result = mysqli_query($conn, $sql);
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="manage.php" class="nav-link link-dark">
-                                        <i class="fa-solid fa-folder-open me-"></i>
-                                        </svg>
-                                        Manage
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="nav-link link-dark">
+                                    <a href="setting.php" class="nav-link link-dark">
                                         <i class="fa-solid fa-gear me-2"></i>
                                         Settings
                                     </a>
@@ -136,7 +160,7 @@ $result = mysqli_query($conn, $sql);
                                             <i class="fa-solid fa-cart-shopping me-2"></i>
                                         </div>
                                         <div class="orders-card-content">
-                                            <h2>1,120</h2>
+                                            <h2><?php echo $total_orders ?></h2>
                                             <p>Total Orders</p>
                                         </div>
                                     </div>
@@ -148,7 +172,7 @@ $result = mysqli_query($conn, $sql);
                                             <i class="fa-solid fa-circle-check me-2 bg-success"></i>
                                         </div>
                                         <div class="orders-card-content">
-                                            <h2>150</h2>
+                                            <h2><?php echo $complete_orders ?></h2>
                                             <p>Completed Orders</p>
                                         </div>
                                     </div>
@@ -160,7 +184,7 @@ $result = mysqli_query($conn, $sql);
                                             <i class="fa-solid fa-circle-check me-2 bg-warning"></i>
                                         </div>
                                         <div class="orders-card-content">
-                                            <h2>100</h2>
+                                            <h2><?php echo $pending_orders ?></h2>
                                             <p>Pending Orders</p>
                                         </div>
                                     </div>
@@ -172,7 +196,7 @@ $result = mysqli_query($conn, $sql);
                                             <i class="fa-solid fa-circle-check me-2 bg-danger"></i>
                                         </div>
                                         <div class="orders-card-content">
-                                            <h2>50</h2>
+                                            <h2><?php echo $reject_orders ?></h2>
                                             <p>Canceled Orders</p>
                                         </div>
                                     </div>
@@ -238,9 +262,9 @@ $result = mysqli_query($conn, $sql);
                                                             <h5 class="modal-title fw-bold fs-3" id="exampleModalLabel">Add Order</h5>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
-                                                        <div class="modal-body">
+                                                        <div class="modal-body p-4 mb-3">
                                                             <form action="" method="POST">
-                                                                <div class="row">
+                                                                <div class="row align-items-center g-4">
                                                                     <div class="col-12 col-md-6 col-lg-6">
                                                                         <div class="mb-3">
                                                                             <label for="name" class="form-label">Student Name</label>
@@ -315,29 +339,89 @@ $result = mysqli_query($conn, $sql);
                                                         <div class="form-check m-0">
                                                             <input class="form-check-input row-check" type="checkbox">
                                                         </div>
-                                                        <span class="fw-semibold"><?php $row['id']; ?></span>
+                                                        <span class="fw-semibold"><?php echo $row['id']; ?></span>
                                                     </div>
                                                 </th>
 
                                                 <td>
-                                                    <h6 class="mb-0"><?php $row['customer_name']; ?></h6>
+                                                    <h6 class="mb-0"><?php echo $row['customer_name']; ?></h6>
                                                     <small class="text-muted"><?php $row['customer_email']; ?> </small>
                                                 </td>
 
-                                                <td><?php $row['order_date']; ?> </td>
-
+                                                <td><?php echo $row['order_date']; ?> </td>
                                                 <td>
-                                                    <span class="badge bg-warning text-dark">Pending</span>
+                                                    <?php
+                                                    $status = $row['status'];
+                                                    if ($status == "pending") {
+                                                        echo '<span class="badge bg-warning text-white">Pending</span>';
+                                                    } else if ($status == "success") {
+                                                        echo '<span class="badge bg-success text-white">Success</span>';
+                                                    } else {
+                                                        echo '<span class="badge bg-danger text-white">Rejected</span>';
+                                                    }
+                                                    ?>
                                                 </td>
-
                                                 <td class="text-center">
-                                                    <button class="btn btn-sm btn-primary">View</button>
+                                                    <a href="orders.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-primary">
+                                                        View <i class="fa fa-eye"></i></a>
                                                 </td>
                                             </tr>
                                         <?php }
                                         ?>
                                     </tbody>
                                 </table>
+                                <!-- View Order Modal -->
+                                <?php if (isset($view_order)) { ?>
+                                    <div class="modal show" id="viewModal" tabindex="-1" style="display:block;background:rgba(0,0,0,0.5);">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title fw-bold">Order Details</h5>
+                                                    <a href="orders.php" class="btn-close"></a>
+
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="text-center mb-3">
+                                                        <i class="fa fa-user-circle fa-4x text-primary"></i>
+                                                    </div>
+                                                    <table class="table table-bordered">
+                                                        <tr>
+                                                            <th>Order ID</th>
+                                                            <td><?php echo $view_order['id']; ?> </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Customer Name</th>
+                                                            <td><?php echo $view_order['customer_name']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Email</th>
+                                                            <td><?php echo $view_order['customer_email']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Order Date</th>
+                                                            <td><?php echo $view_order['order_date']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Status</th>
+                                                            <td>
+                                                                <?php
+                                                                $status = $view_order['status'];
+                                                                if ($status == "pending") {
+                                                                    echo '<span class="badge bg-warning">Pending</span>';
+                                                                } else if ($status == "success") {
+                                                                    echo '<span class="badge bg-success">Success</span>';
+                                                                } else {
+                                                                    echo '<span class="badge bg-danger">Rejected</span>';
+                                                                }
+                                                                ?>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php } ?>
                             </div>
                         </div>
                         <!-- ORDER-DASHBOARD END -->
