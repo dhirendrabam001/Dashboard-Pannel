@@ -4,9 +4,11 @@ include "flash.php";
 include "auth/auth.php";
 $user_id = $_SESSION['user_id'];
 
-$sql = "SELECT * FROM  setting_table WHERE id = 'user_id'";
+$sql = "SELECT * FROM  setting_table LIMIT 1";
 $result = mysqli_query($conn, $sql);
+
 $user = mysqli_fetch_assoc($result);
+
 
 if (isset($_POST['submit'])) {
     $name = $_POST['setting_name'];
@@ -23,6 +25,7 @@ if (isset($_POST['submit'])) {
 
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -109,7 +112,7 @@ if (isset($_POST['submit'])) {
                     </div>
                 </div>
                 <div class="col-12 col-md-9 col-lg-9">
-                    <form>
+                    <form method="POST">
                         <div class="dashbaord-content-left">
                             <h2 class="fw-bold fs-3 mb-3">Settings</h2>
                             <div class="divider"></div>
@@ -121,7 +124,7 @@ if (isset($_POST['submit'])) {
                                             <div class="item-content">
                                                 <div class="mb-3">
                                                     <label class="form-label">Name<span class="text-danger">*</span></label>
-                                                    <input type="text" name="title" value="<?php echo $user['name']; ?>" class="form-control" placeholder="Enter Name...">
+                                                    <input type="text" name="setting_name" value="<?php echo $user['setting_name']; ?>" class="form-control" placeholder="Enter Name...">
                                                 </div>
                                             </div>
                                         </div>
@@ -129,7 +132,7 @@ if (isset($_POST['submit'])) {
                                             <div class="item-content">
                                                 <div class="mb-3">
                                                     <label class="form-label">Email<span class="text-danger">*</span></label>
-                                                    <input type="email" name="email" value="<?php echo $user['email']; ?>" class="form-control" placeholder="Enter Your Email Address...">
+                                                    <input type="email" name="setting_email" value="<?php echo $user['setting_email'] ?>" class="form-control" placeholder="Enter Your Email Address...">
                                                 </div>
                                             </div>
                                         </div>
@@ -137,7 +140,7 @@ if (isset($_POST['submit'])) {
                                             <div class="item-content">
                                                 <div class="mb-3">
                                                     <label class="form-label">Phone <span class="text-danger">*</span></label>
-                                                    <input type="text" name="phone" value="<?php echo $user['phone']; ?>" class="form-control" placeholder="Enter Phone Number...">
+                                                    <input type="text" name="setting_phone" value="<?php echo $user['setting_phone']; ?>" class="form-control" placeholder="Enter Phone Number...">
                                                 </div>
                                             </div>
                                         </div>
