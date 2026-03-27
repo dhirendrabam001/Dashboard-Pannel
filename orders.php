@@ -116,7 +116,7 @@ $reject_orders = $reject_row['reject_orders'];
     <section class="dashboard-main">
         <div class="container-info">
             <div class="row">
-                <div class="col-12 col-md-2 col-lg-2">
+                <div class="col-12 col-md-4 col-lg-2">
                     <div class="dashbaord-content">
                         <div class="d-flex flex-column flex-shrink-0 p-3 bg-light sidebar-info gap-2 ">
                             <ul class="nav nav-pills flex-column mb-auto">
@@ -148,13 +148,13 @@ $reject_orders = $reject_row['reject_orders'];
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-9 col-lg-9">
+                <div class="col-12 col-md-8 col-lg-9">
                     <div class="dashbaord-content-left">
                         <h2 class="fw-bold fs-2 mb-3">Orders</h2>
                         <div class="divider"></div>
                         <div class="orders-main">
                             <div class="row align-items-center">
-                                <div class="col-12 col-md-3 col-lg-3">
+                                <div class="col-12 col-md-6 col-lg-3">
                                     <div class="orders-card d-flex align-items-center shadow">
                                         <div class="order-icons">
                                             <i class="fa-solid fa-cart-shopping me-2"></i>
@@ -166,7 +166,7 @@ $reject_orders = $reject_row['reject_orders'];
                                     </div>
                                 </div>
                                 <!-- order-2 -->
-                                <div class="col-12 col-md-3 col-lg-3">
+                                <div class="col-12 col-md-6 col-lg-3">
                                     <div class="orders-card d-flex align-items-center shadow">
                                         <div class="order-icons">
                                             <i class="fa-solid fa-circle-check me-2 bg-success"></i>
@@ -178,7 +178,7 @@ $reject_orders = $reject_row['reject_orders'];
                                     </div>
                                 </div>
                                 <!-- order-3 -->
-                                <div class="col-12 col-md-3 col-lg-3">
+                                <div class="col-12 col-md-6 col-lg-3">
                                     <div class="orders-card d-flex align-items-center shadow">
                                         <div class="order-icons">
                                             <i class="fa-solid fa-circle-check me-2 bg-warning"></i>
@@ -190,7 +190,7 @@ $reject_orders = $reject_row['reject_orders'];
                                     </div>
                                 </div>
                                 <!-- order-4 -->
-                                <div class="col-12 col-md-3 col-lg-3">
+                                <div class="col-12 col-md-6 col-lg-3">
                                     <div class="orders-card d-flex align-items-center shadow">
                                         <div class="order-icons">
                                             <i class="fa-solid fa-circle-check me-2 bg-danger"></i>
@@ -204,8 +204,8 @@ $reject_orders = $reject_row['reject_orders'];
                             </div>
                             <!-- SEARCH FILTER START-->
                             <div class="search-filter">
-                                <div class="row">
-                                    <div class="col-12 col-md-4 col-lg-4">
+                                <div class="row align-items-center g-4">
+                                    <div class="col-12 col-md-6 col-lg-4">
                                         <div class="search-icon">
                                             <i class="fa-solid fa-magnifying-glass text-secondary"></i>
                                             <input
@@ -216,7 +216,7 @@ $reject_orders = $reject_row['reject_orders'];
                                         </div>
                                     </div>
                                     <!--STATUS  -->
-                                    <div class="col-12 col-md-2 col-lg-2">
+                                    <div class="col-12 col-md-6 col-lg-2">
                                         <div class="status-info">
                                             <select class="form-select select-color" aria-label="Default select example">
                                                 <option selected>Select Status</option>
@@ -227,7 +227,7 @@ $reject_orders = $reject_row['reject_orders'];
                                         </div>
                                     </div>
                                     <!--Select Date  -->
-                                    <div class="col-12 col-md-2 col-lg-2">
+                                    <div class="col-12 col-md-6 col-lg-2">
                                         <div class="date-info">
                                             <!-- Fake Select -->
                                             <select id="dateSelect" class="form-select">
@@ -239,7 +239,7 @@ $reject_orders = $reject_row['reject_orders'];
                                     </div>
 
                                     <!-- EXPORT SECTION -->
-                                    <div class="col-12 col-md-2 col-lg-2">
+                                    <div class="col-12 col-md-6 col-lg-2">
                                         <div class="status-info">
                                             <select class="form-select select-color" aria-label="Default select example">
                                                 <option selected>Export</option>
@@ -250,7 +250,7 @@ $reject_orders = $reject_row['reject_orders'];
                                         </div>
                                     </div>
                                     <!-- ADD ORDER -->
-                                    <div class="col-12 col-md-2 col-lg-2">
+                                    <div class="col-12 col-md-6 col-lg-2">
                                         <div class="add-btn">
                                             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addOrder"> <i class="fa-solid fa-plus"></i> Add Orders</button>
 

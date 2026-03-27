@@ -100,7 +100,7 @@ $result = mysqli_query($conn, $sql);
     <section class="dashboard-main">
         <div class="container-info">
             <div class="row">
-                <div class="col-12 col-md-2 col-lg-2">
+                <div class="col-12 col-md-4 col-lg-2">
                     <div class="dashbaord-content">
                         <div class="d-flex flex-column flex-shrink-0 p-3 bg-light sidebar-info gap-2 ">
                             <ul class="nav nav-pills flex-column mb-auto">
@@ -132,12 +132,12 @@ $result = mysqli_query($conn, $sql);
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-9 col-lg-9">
+                <div class="col-12 col-md-8 col-lg-9">
                     <div class="dashbaord-content-left">
                         <h2 class="fw-bold fs-2 mb-3">Dashboard</h2>
                         <div class="divider"></div>
                         <div class="card-info">
-                            <div class="row">
+                            <div class="row align-items-center g-4">
                                 <div class="col-12 col-md-4 col-lg-4">
                                     <div class="card-content shadow">
                                         <h5 class="fs-6 mb-3">Total User</h5>

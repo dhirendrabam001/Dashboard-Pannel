@@ -81,7 +81,7 @@ if (isset($_POST["submit"])) {
     <section class="dashboard-main">
         <div class="container-info">
             <div class="row">
-                <div class="col-12 col-md-2 col-lg-2">
+                <div class="col-12 col-md-4 col-lg-2">
                     <div class="dashbaord-content">
                         <div class="d-flex flex-column flex-shrink-0 p-3 bg-light sidebar-info gap-2 ">
                             <ul class="nav nav-pills flex-column mb-auto">
@@ -113,7 +113,7 @@ if (isset($_POST["submit"])) {
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-9 col-lg-9">
+                <div class="col-12 col-md-8 col-lg-9">
                     <form action="" method="POST">
                         <div class="dashbaord-content-left">
                             <h2 class="fw-bold fs-3 mb-3">Add New Item</h2>

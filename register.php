@@ -15,12 +15,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     $username = $_POST['username'];
+    $fullname = $_POST['fullname'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $cpassword = $_POST['cpassword'];
 
+
     // CHECK THE FIRST ALL FIELD ARE REQUIRED OR NOT
-    if (!$username || !$email || !$password || !$cpassword) {
+    if (!$username || !$fullname || !$email || !$password || !$cpassword) {
         flash("error", "Please All Field Are Required");
         exit();
     }
@@ -43,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $hashPassword = password_hash($password, PASSWORD_DEFAULT);
 
     // SAVE INTO DATABASE MYSQLI
-    $sql = "INSERT INTO register_table(username, email, password) VALUES ('$username', '$email', '$hashPassword')";
+    $sql = "INSERT INTO register_table(username, fullname, email, password) VALUES ('$username', '$fullname', '$email', '$hashPassword')";
     if (mysqli_query($conn, $sql)) {
         // unset token when register successfully
         unset($_SESSION['token']);
@@ -112,6 +114,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     class="form-control"
                                     name="username"
                                     placeholder="Username" />
+                            </div>
+                            <div class="mb-3">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    name="fullname"
+                                    placeholder="Full Name" />
 
                             </div>
                             <div class="mb-3">

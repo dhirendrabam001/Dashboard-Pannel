@@ -4,28 +4,79 @@ include "flash.php";
 include "auth/auth.php";
 $user_id = $_SESSION['user_id'];
 
-$sql = "SELECT * FROM  setting_table LIMIT 1";
+
+$sql = "SELECT * FROM   register_table  WHERE id = '$user_id'";
 $result = mysqli_query($conn, $sql);
 
 $user = mysqli_fetch_assoc($result);
-
+if (!$user) {
+    echo "user not found";
+    exit();
+}
 
 if (isset($_POST['submit'])) {
-    $name = $_POST['setting_name'];
-    $email = $_POST['setting_email'];
-    $phone = $_POST['setting_phone'];
-    $password = $_POST['setting_password'];
-
+    $username = $_POST['username'];
+    $fullname = $_POST['fullname'];
+    $email = $_POST['email'];
     // all field are required
-    if (!$name || !$email || !$phone || !$password) {
+    if (!$username || !$fullname || !$email) {
         flash("error", "Please All Field Are Required");
+        exit();
+    }
+
+    // updated query 
+    $update_query = "UPDATE register_table SET username = '$username', fullname = '$fullname', email = '$email' WHERE id = '$user_id'";
+    $update_result = mysqli_query($conn, $update_query);
+    if ($update_result) {
+        flash("success", "Profile Updated Successfully");
         exit();
     }
 }
 
+// change password
+if (isset($_POST['change_password'])) {
+    $currentpass = $_POST['currentpass'];
+    $newpass = $_POST['cpassword'];
+    $confirmpass = $_POST['confirmpass'];
+
+    // all field are required
+    if (!$currentpass || !$newpass || !$confirmpass) {
+        flash("error", "Please All Filed Are Required");
+        exit();
+    }
+
+    // check the password
+    if ($newpass !== $confirmpass) {
+        flash("error", "Password Does Not Matched");
+        exit();
+    }
+
+    //  get password from user
+    $sql = "SELECT password FROM register_table WHERE id = '$user_id'";
+    $get_result = mysqli_query($conn, $sql);
+    $get_row = mysqli_fetch_assoc($get_result);
+
+    // password verify from register user
+    if (!password_verify($currentpass, $get_row['password'])) {
+        flash("error", "Current Password Does Not Matched");
+        exit();
+    }
+
+    // hashpassword
+    $hashPass = password_hash($newpass, PASSWORD_DEFAULT);
+
+    // now updated password 
+    $update = "UPDATE register_table SET password = '$hashPass' WHERE id = '$user_id'";
+    $update_result = mysqli_query($conn, $update);
+    if ($update_result) {
+        flash("success", "Password Updated Successfully");
+    } else {
+        flash("error", "Password Does Not Updated");
+    }
+    exit();
+}
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -79,7 +130,7 @@ if (isset($_POST['submit'])) {
     <section class="dashboard-main">
         <div class="container-info">
             <div class="row">
-                <div class="col-12 col-md-2 col-lg-2">
+                <div class="col-12 col-md-4 col-lg-2">
                     <div class="dashbaord-content">
                         <div class="d-flex flex-column flex-shrink-0 p-3 bg-light sidebar-info gap-2 ">
                             <ul class="nav nav-pills flex-column mb-auto">
@@ -111,7 +162,7 @@ if (isset($_POST['submit'])) {
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-9 col-lg-9">
+                <div class="col-12 col-md-8 col-lg-9">
                     <form method="POST">
                         <div class="dashbaord-content-left">
                             <h2 class="fw-bold fs-3 mb-3">Settings</h2>
@@ -122,9 +173,19 @@ if (isset($_POST['submit'])) {
                                     <div class="row align-items-center">
                                         <div class="col-12">
                                             <div class="item-content">
+                                                <?php
+                                                if (isset($user)) { ?>
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Username <span class="text-danger">*</span></label>
+                                                        <input type="text" name="username" value="<?php echo $user['username']; ?>" class="form-control" placeholder="Enter Your Username...">
+                                                    </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="item-content">
                                                 <div class="mb-3">
                                                     <label class="form-label">Name<span class="text-danger">*</span></label>
-                                                    <input type="text" name="setting_name" value="<?php echo $user['setting_name']; ?>" class="form-control" placeholder="Enter Name...">
+                                                    <input type="text" name="fullname" value="<?php echo $user['fullname']; ?>" class="form-control" placeholder="Enter Name...">
                                                 </div>
                                             </div>
                                         </div>
@@ -132,22 +193,17 @@ if (isset($_POST['submit'])) {
                                             <div class="item-content">
                                                 <div class="mb-3">
                                                     <label class="form-label">Email<span class="text-danger">*</span></label>
-                                                    <input type="email" name="setting_email" value="<?php echo $user['setting_email'] ?>" class="form-control" placeholder="Enter Your Email Address...">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="item-content">
-                                                <div class="mb-3">
-                                                    <label class="form-label">Phone <span class="text-danger">*</span></label>
-                                                    <input type="text" name="setting_phone" value="<?php echo $user['setting_phone']; ?>" class="form-control" placeholder="Enter Phone Number...">
+                                                    <input type="email" name="email" value="<?php echo $user['email'] ?>" class="form-control" placeholder="Enter Your Email Address...">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="add-item-btn text-center">
-                                        <button type="submit" name="submit" class="btn btn-primary w-100">Update Profile</button>
-                                    </div>
+                                <?php  }
+                                ?>
+
+                                <div class="add-item-btn text-center">
+                                    <button type="submit" name="submit" class="btn btn-primary w-100">Update Profile</button>
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -156,35 +212,42 @@ if (isset($_POST['submit'])) {
                     <div class="change-password-content mt-3">
                         <h5 class="fw-bold fs-5 my-3">Change Password</h5>
                         <div class="card-info-item-setting shadow">
-                            <form action="" method="POST">
+                            <form method="POST">
                                 <div class="row align-items-center">
-                                    <div class="col-12">
-                                        <div class="item-content">
-                                            <div class="mb-3">
-                                                <label class="form-label">Current Password<span class="text-danger">*</span></label>
-                                                <input type="text" name="currentpass" class="form-control" placeholder="Enter Current Password...">
+                                    <?php
+                                    if (isset($user)) { ?>
+                                        <div class="col-12">
+                                            <div class="item-content">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Current Password<span class="text-danger">*</span></label>
+                                                    <input type="password" name="currentpass" class="form-control" placeholder="Enter Current Password...">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="item-content">
-                                            <div class="mb-3">
-                                                <label class="form-label">Change Password<span class="text-danger">*</span></label>
-                                                <input type="text" name="cpassword" class="form-control" placeholder="Enter Your Change Password...">
+                                        <div class="col-12">
+                                            <div class="item-content">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Change Password<span class="text-danger">*</span></label>
+                                                    <input type="password" name="cpassword" class="form-control" placeholder="Enter Your Change Password...">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="item-content">
-                                            <div class="mb-3">
-                                                <label class="form-label">Confirm Password <span class="text-danger">*</span></label>
-                                                <input type="text" name="confirmpass" class="form-control" placeholder="Enter Confirm Password...">
+                                        <div class="col-12">
+                                            <div class="item-content">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Confirm Password <span class="text-danger">*</span></label>
+                                                    <input type="password" name="confirmpass" class="form-control" placeholder="Enter Confirm Password...">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    <?php   }
+
+                                    ?>
+
+
                                 </div>
                                 <div class="add-item-btn text-center">
-                                    <button type="submit" name="submit" class="btn btn-primary w-100">Update Profile</button>
+                                    <button type="submit" name="change_password" class="btn btn-primary w-100">Update Profile</button>
                                 </div>
                             </form>
                         </div>

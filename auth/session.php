@@ -1,7 +1,7 @@
 <?php
 
 // SET TIMEOUT (in seconds)
-$timeout = 300; // 5 minutes (600 = 10 minutes)
+$timeout = 600; // 5 minutes (600 = 10 minutes)
 
 // CHECK USER LOGIN OR NOT
 if (!isset($_SESSION['user_id'])) {
